@@ -14,8 +14,6 @@ run;
 *and then calculates ICC and limits of agreement;
 
 proc sql noprint;
- *calculating stats from diffhsum data that are needed for ICC calculation;
- *then calculating ICC and limits of agreement;
  select 
  	mean(diff), std(diff), sum(diff*diff), avg(hsum), count(*)*2/(2*count(*)-1)
  	into :bias, :std_diff, :sq_diff, :mean_hsum, :Nsfactor
