@@ -1,3 +1,6 @@
+*Step 1. Pre-processing;
+*Here, datafroma2assays is your dataset that contains measurements obtained by two methods/assays, a1 and a2;
+
 data diffhsum;
  set datafroma2assays;
  diff = a1-a2; *diference between assays;
@@ -5,6 +8,10 @@ data diffhsum;
  if a1 ne . and a2 ne .; *excluding missing data;
  keep hsum diff;
 run;
+
+*Step 2. ICC;
+*Here, sql proc calculates stats from diffhsum data that are needed for ICC calculation and BA plot;
+*and then calculates ICC and limits of agreement;
 
 proc sql noprint;
  *calculating stats from diffhsum data that are needed for ICC calculation;
@@ -19,6 +26,8 @@ proc sql noprint;
 	into :ICC, :lla, :ula
  from diffhsum;
 quit;
+
+*Step 3. BA plot;
 
 title height=20pt italic 'Bland-Altman Plot' color=blue;
 proc sgplot data=diffhsum;
